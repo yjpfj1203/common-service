@@ -22,15 +22,6 @@ import java.util.Set;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@NamedEntityGraphs({
-        @NamedEntityGraph(name = "Region.subRegion",
-                attributeNodes = {@NamedAttributeNode(value = "regions", subgraph = "Region.subsubRegion")},
-                subgraphs = {@NamedSubgraph(name = "Region.subsubRegion", attributeNodes = {@NamedAttributeNode("regions")})}
-        ),
-        @NamedEntityGraph(name = "subRegion",
-                attributeNodes = {@NamedAttributeNode(value = "regions")}
-        )
-})
 @Getter
 @Setter
 public class Region implements Serializable {
@@ -38,7 +29,8 @@ public class Region implements Serializable {
     public static final long serialVersionUID = 31312312313L;
 
     @Id
-    @GeneratedValue
+    //strategy = GenerationType.IDENTITY 这个只适用于mysql，如果是oracle，可查下文档
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //邮政编码
@@ -51,13 +43,7 @@ public class Region implements Serializable {
     @Enumerated(EnumType.STRING)
     private RegionTypeEnum type;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    @JsonIgnore
-    private Region parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private Set<Region> regions;
+    private Long parentId;
 
     @Digits(integer = 3, fraction = 12)
     private BigDecimal longitude = BigDecimal.valueOf(0);
@@ -107,4 +93,6 @@ public class Region implements Serializable {
             return this.latitude;
         }
     }
+
+
 }

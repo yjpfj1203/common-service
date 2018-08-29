@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,28 +25,26 @@ public class RegionModel {
     private String code;
     private String name;
     private RegionTypeEnum type;
-    private List<RegionModel> regions;
+    private List<RegionModel> regions = new ArrayList<>();
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private Long parentId;
 
     public RegionModel(Region region) {
         this.id = region.getId();
         this.code = region.getCode();
         this.name = region.getName();
         this.type = region.getType();
+        this.parentId = region.getParentId();
         this.latitude = region.getLatitude();
         this.longitude = region.getLongitude();
-        this.regions = region.getRegions().stream().map(RegionModel::new).collect(Collectors.toList());
     }
 
-    public RegionModel RegionModelWithoutChildren(Region region) {
-        this.id = region.getId();
-        this.code = region.getCode();
-        this.name = region.getName();
-        this.type = region.getType();
-        this.latitude = region.getLatitude();
-        this.longitude = region.getLongitude();
-        this.regions = null;
-        return this;
+    public void addChildRegion(RegionModel child){
+        getRegions().add(child);
+    }
+
+    public void addChildren(List<RegionModel> children){
+        getRegions().addAll(children);
     }
 }

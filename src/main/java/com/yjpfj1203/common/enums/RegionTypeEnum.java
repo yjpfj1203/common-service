@@ -8,11 +8,11 @@ public enum RegionTypeEnum {
     PROVINCE("省"),
     CITY("市"),
     AREA("区域"),
-    BLOCK("街道/商圈");
+    STREET("街道/商圈");
 
     private String desc;
 
-    private RegionTypeEnum(String desc) {
+    RegionTypeEnum(String desc) {
         this.desc = desc;
     }
 
