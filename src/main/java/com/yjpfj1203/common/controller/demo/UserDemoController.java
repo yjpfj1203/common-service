@@ -8,7 +8,6 @@ import com.yjpfj1203.common.entity.querydsldemo.repository.query.TradeQueryCondi
 import com.yjpfj1203.common.entity.querydsldemo.repository.result.LongAndStringModel;
 import com.yjpfj1203.common.model.PageResponse;
 import com.yjpfj1203.common.model.trade.TradeModel;
-import com.yjpfj1203.common.service.TradeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

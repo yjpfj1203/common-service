@@ -22,6 +22,11 @@ public class PromotionModel {
      */
     private BigDecimal amount;
 
+    public PromotionModel(String name, BigDecimal amount){
+        setName(name);
+        setAmount(amount);
+    }
+
 //    public PromotionModel(Promotion promotion){
 //        setId(promotion.getId());
 //        setName(promotion.getName());
